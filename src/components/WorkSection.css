@@ -1,0 +1,132 @@
+.work {
+  background: var(--white);
+  padding: 80px 40px 100px;
+}
+
+.work__header {
+  max-width: 1280px;
+  margin: 0 auto 72px;
+  text-align: center;
+}
+
+.work__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.work__heading {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+/* ---- Cards ---- */
+.work__cards {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.work__card {
+  background: var(--black);
+  border-radius: 20px;
+  padding: 44px 48px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: 75%;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+}
+
+.work__card--left  { margin-left: 0; margin-right: auto; }
+.work__card--right { margin-left: auto; margin-right: 0; }
+
+.work__card-content { flex: 1; min-width: 0; }
+
+.work__num {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.work__card-title {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.work__card-desc {
+  font-size: 13px;
+  color: var(--gray-text);
+  line-height: 1.85;
+  font-weight: 400;
+}
+
+.work__link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: letter-spacing var(--transition);
+}
+
+.work__link:hover { letter-spacing: 0.35em; }
+
+/* Photo */
+.work__photo-wrap {
+  width: 240px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.work__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.work__card:hover .work__photo { transform: scale(1.04); }
+
+/* ---- Mobile ---- */
+@media (max-width: 900px) {
+  .work__card {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex-direction: column;
+    padding: 32px 28px;
+    gap: 24px;
+  }
+
+  .work__photo-wrap {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work { padding: 60px 20px 80px; }
+  .work__header { margin-bottom: 48px; }
+}

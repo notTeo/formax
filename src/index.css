@@ -1,0 +1,39 @@
+/* =============================================
+   FORMAX — Global Styles
+   ============================================= */
+
+:root {
+  --black: #0d0d0d;
+  --white: #ffffff;
+  --gold: #c9a84c;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+  --gray-text: #aaaaaa;
+  --gray-mid: #666666;
+  --font: 'Sora', sans-serif;
+  --transition: 0.3s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: var(--font); border: none; outline: none; }
+#root { width: 100%; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
