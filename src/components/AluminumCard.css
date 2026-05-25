@@ -1,0 +1,150 @@
+.alcard-wrap {
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 40px 100px;
+}
+
+.alcard-scene {
+  flex-shrink: 0;
+}
+
+/* Perspective on a separate parent — required for correct 3D */
+.alcard-perspective {
+  width: 360px;
+  height: 206px;
+  perspective: 1000px;
+}
+
+.alcard-flipper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* ── Both faces ── */
+.alcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.7),
+    0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.alcard-face__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+/* ── FRONT — brushed aluminum ── */
+.alcard-front {
+  background: linear-gradient(
+    145deg,
+    #cacaca 0%,
+    #f0f0f0 25%,
+    #b8b8b8 45%,
+    #ececec 65%,
+    #c4c4c4 85%,
+    #e0e0e0 100%
+  );
+}
+
+.alcard-front__name {
+  font: 800 13px/1 var(--font);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(30, 30, 30, 0.5);
+  white-space: nowrap;
+}
+
+.alcard-front__hint {
+  font: 500 7px/1 var(--font);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(30, 30, 30, 0.28);
+  margin-top: 4px;
+}
+
+/* ── BACK — dark matte, pre-rotated 180° for the flip ── */
+.alcard-back {
+  background: linear-gradient(145deg, #1e1e1e 0%, #2c2c2c 50%, #181818 100%);
+  transform: rotateY(180deg);
+}
+
+.alcard-back__brand {
+  font: 800 11px/1 var(--font);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.alcard-back__tagline {
+  font: 400 8px/1 var(--font);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+}
+
+.alcard-back__divider {
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  margin: 4px 0;
+}
+
+.alcard-back__name {
+  font: 700 11px/1 var(--font);
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.alcard-back__role {
+  font: 400 8px/1 var(--font);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  white-space: nowrap;
+}
+
+.alcard-back__contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.alcard-back__contacts span {
+  font: 400 7.5px/1 var(--font);
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+}
+
+/* ── Mobile: scale down so card fits ── */
+@media (max-width: 480px) {
+  .alcard-perspective {
+    width: 260px;
+    height: 149px;
+  }
+
+  .alcard-front__name { font-size: 10px; }
+  .alcard-back__brand { font-size: 9px; }
+  .alcard-back__name  { font-size: 9px; }
+}
