@@ -123,7 +123,6 @@ export default function AboutPage() {
 
       {/* ── Business Card — centered ── */}
       <section className="about__card-section">
-        <p className="about__section-label about__card-label">{ab.cardLabel}</p>
         <AluminumCard />
       </section>
 

@@ -56,7 +56,6 @@ export const translations = {
       team: [
         { name: 'Philip Karaiskos', role: 'Senior Project Manager', initials: 'PK' }
       ],
-      cardLabel: 'Get in Touch',
     },
     contact: {
       backBtn: '← Back',
@@ -189,7 +188,6 @@ export const translations = {
       team: [
         { name: 'Φίλιππος Καραΐσκος', role: 'Διευθυντής Έργων', initials: 'ΦΚ' }
       ],
-      cardLabel: 'Επικοινωνήστε',
     },
     contact: {
       backBtn: '← Πίσω',
