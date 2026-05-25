@@ -1,23 +1,8 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 import './ServicesSection.css'
 
-const services = [
-  {
-    icon: '◈',
-    title: 'Design & Planning',
-    desc: 'From initial concept to construction documents, our in-house team integrates architectural design, structural engineering, and MEP coordination — delivering buildable, code-compliant packages on every project.',
-  },
-  {
-    icon: '◉',
-    title: 'Construction Management',
-    desc: 'We manage the full construction lifecycle: procurement, scheduling, subcontractor oversight, quality control, and client reporting. Every project is delivered on time, within budget, and to our exacting standards.',
-  },
-  {
-    icon: '◫',
-    title: 'Renovation & Retrofit',
-    desc: 'Breathing new life into existing structures while maintaining operational continuity. We specialise in seismic upgrades, full-floor refits, façade replacement, and tenant improvement works at scale.',
-  },
-]
+const icons = ['◈', '◉', '◫']
 
 const cardVariants = {
   hidden: { opacity: 0, y: 32 },
@@ -29,6 +14,9 @@ const cardVariants = {
 }
 
 export default function ServicesSection() {
+  const { t } = useLanguage()
+  const services = t.services.items.map((s, i) => ({ ...s, icon: icons[i] }))
+
   return (
     <section className="services" id="services">
       <motion.p
@@ -38,7 +26,7 @@ export default function ServicesSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        What We Do
+        {t.services.label}
       </motion.p>
       <motion.h2
         className="services__heading"
@@ -47,7 +35,7 @@ export default function ServicesSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        Our Services
+        {t.services.heading}
       </motion.h2>
 
       <div className="services__grid">

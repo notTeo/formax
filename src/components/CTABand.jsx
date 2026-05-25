@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 import './CTABand.css'
 
 export default function CTABand() {
+  const { t } = useLanguage()
+
   return (
     <section className="cta" id="contact">
       <div className="cta__inner">
@@ -12,8 +15,8 @@ export default function CTABand() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          Ready to Build{' '}
-          <span className="cta__heading--gold">Something Great?</span>
+          {t.cta.heading}{' '}
+          <span className="cta__heading--gold">{t.cta.accent}</span>
         </motion.h2>
 
         <motion.a
@@ -26,7 +29,7 @@ export default function CTABand() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
         >
-          Start Your Project
+          {t.cta.btn}
         </motion.a>
       </div>
     </section>

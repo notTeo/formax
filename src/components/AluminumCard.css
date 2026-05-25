@@ -173,7 +173,43 @@
     height: 149px;
   }
 
+  .alcard-face__inner { gap: 5px; }
+
   .alcard-front__logo { width: 90px; }
-  .alcard-back__brand { font-size: 9px; }
-  .alcard-back__name  { font-size: 9px; }
+
+  /* Back — scale everything down to fit 260×149 */
+  .alcard-back__brand {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+  }
+  .alcard-back__tagline {
+    font-size: 6px;
+    letter-spacing: 0.12em;
+    white-space: normal;
+    text-align: center;
+    max-width: 160px;
+  }
+  .alcard-back__divider {
+    width: 24px;
+    margin: 2px 0;
+  }
+  .alcard-back__name {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+  .alcard-back__role {
+    font-size: 6px;
+    letter-spacing: 0.1em;
+  }
+  .alcard-back__contacts {
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .alcard-back__contacts span {
+    font-size: 6px;
+    letter-spacing: 0.06em;
+    white-space: normal;
+    text-align: center;
+    max-width: 160px;
+  }
 }

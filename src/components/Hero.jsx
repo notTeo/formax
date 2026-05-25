@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
-import logo from '../assets/formax-logo2.png'
+import logo from '../assets/formax-logo-transparent.png'
+import { useLanguage } from '../context/LanguageContext'
 import './Hero.css'
 
 export default function Hero() {
+  const { t } = useLanguage()
   return (
     <section className="hero" id="hero">
       <div className="hero__inner">
@@ -28,7 +30,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 1.05 }}
         >
-          Built to Last&nbsp;&nbsp;/&nbsp;&nbsp;Built with Precision
+          {t.hero.sub}
         </motion.p>
 
       </div>

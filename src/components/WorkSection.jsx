@@ -1,36 +1,30 @@
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 import './WorkSection.css'
 
-const projects = [
+const categories = [
   {
-    num: '01',
-    title: 'Harborview Tower',
-    desc: '32-floor commercial high-rise delivered four weeks ahead of schedule. Structural steel frame, full curtain-wall glazing, LEED Gold certification, and a 98,000 sq ft floorplate built for long-term commercial tenants.',
-    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80',
-    align: 'left',
+    id: 'properties',
+    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    count: 68,
   },
   {
-    num: '02',
-    title: 'Meridian Residences',
-    desc: '148-unit luxury residential complex spanning two basement parking levels, a rooftop amenity deck, and a private landscaped courtyard. Delivered on budget with zero structural deficiencies reported post-handover.',
-    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80',
-    align: 'right',
+    id: 'islands',
+    img: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80',
+    count: 41,
   },
   {
-    num: '03',
-    title: 'Eastbridge Industrial',
-    desc: '92,000 sq ft logistics and light-manufacturing facility built on a compressed 14-month timeline. Tilt-up concrete construction, heavy-load floor slabs rated at 10,000 lbs/sq ft, and full M&E fit-out.',
-    img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80',
-    align: 'left',
+    id: 'hotels',
+    img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+    count: 38,
   },
 ]
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-}
-
 export default function WorkSection() {
+  const navigate = useNavigate()
+  const { t } = useLanguage()
+
   return (
     <section className="work" id="projects">
       <div className="work__header">
@@ -41,7 +35,7 @@ export default function WorkSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Selected Work
+          {t.work.label}
         </motion.p>
         <motion.h2
           className="work__heading"
@@ -50,30 +44,33 @@ export default function WorkSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          Projects That Define Us
+          {t.work.heading}
         </motion.h2>
       </div>
 
-      <div className="work__cards">
-        {projects.map((p, i) => (
+      <div className="work__cats">
+        {categories.map((cat, i) => (
           <motion.div
-            key={p.num}
-            className={`work__card work__card--${p.align}`}
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
+            key={cat.id}
+            className="work__cat"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ delay: i * 0.1 }}
+            transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            onClick={() => navigate(`/projects/${cat.id}`)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => e.key === 'Enter' && navigate(`/projects/${cat.id}`)}
           >
-            <div className="work__card-content">
-              <span className="work__num">{p.num}</span>
-              <h3 className="work__card-title">{p.title}</h3>
-              <p className="work__card-desc">{p.desc}</p>
-              <a href="#projects" className="work__link">View Project →</a>
+            <div className="work__cat-img-wrap">
+              <img src={cat.img} alt={t.work[cat.id]} className="work__cat-img" loading="lazy" />
+              <div className="work__cat-overlay" />
             </div>
-            <div className="work__photo-wrap">
-              <img src={p.img} alt={p.title} className="work__photo" loading="lazy" />
+            <div className="work__cat-body">
+              <h3 className="work__cat-title">{t.work[cat.id]}</h3>
+              <span className="work__cat-count">{cat.count}+ {t.work.projects_suffix}</span>
             </div>
+            <div className="work__cat-arrow">→</div>
           </motion.div>
         ))}
       </div>

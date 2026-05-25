@@ -1,37 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import CountUp from './CountUp'
+import { useLanguage } from '../context/LanguageContext'
 import './MetricsSection.css'
 
-const metrics = [
-  { value: 147, suffix: '+', label: 'Projects Completed' },
-  { value: 16,  suffix: '',  label: 'Years of Experience' },
-  { value: 98,  suffix: '%', label: 'Client Satisfaction' },
-  { value: 23,  suffix: '',  label: 'Team Members' },
+const metricsData = [
+  { value: 147, suffix: '+', labelKey: 'Projects Completed' },
+  { value: 16,  suffix: '',  labelKey: 'Years of Experience' },
+  { value: 98,  suffix: '%', labelKey: 'Client Satisfaction' },
+  { value: 23,  suffix: '',  labelKey: 'Team Members' },
 ]
-
-function CountUp({ target, suffix, active }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!active) return
-    let start = 0
-    const duration = 1800
-    const step = 16
-    const increment = target / (duration / step)
-    const timer = setInterval(() => {
-      start += increment
-      if (start >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(start))
-      }
-    }, step)
-    return () => clearInterval(timer)
-  }, [active, target])
-
-  return <>{count}{suffix}</>
-}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 32 },
@@ -45,6 +23,7 @@ const cardVariants = {
 export default function MetricsSection() {
   const [active, setActive] = useState(false)
   const ref = useRef(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,7 +43,7 @@ export default function MetricsSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        By the Numbers
+        {t.metrics.label}
       </motion.p>
       <motion.h2
         className="metrics__heading"
@@ -73,13 +52,13 @@ export default function MetricsSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        A Track Record That Speaks
+        {t.metrics.heading}
       </motion.h2>
 
       <div className="metrics__grid">
-        {metrics.map((m, i) => (
+        {metricsData.map((m, i) => (
           <motion.div
-            key={m.label}
+            key={m.labelKey}
             className="metrics__card"
             custom={i}
             variants={cardVariants}
@@ -90,7 +69,7 @@ export default function MetricsSection() {
             <div className="metrics__number">
               <CountUp target={m.value} suffix={m.suffix} active={active} />
             </div>
-            <div className="metrics__name">{m.label}</div>
+            <div className="metrics__name">{m.labelKey}</div>
           </motion.div>
         ))}
       </div>
