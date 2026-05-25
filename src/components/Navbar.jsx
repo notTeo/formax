@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import fMark from '../assets/formax-f-mark.png'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -25,14 +26,11 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : 'navbar--top'}`}>
         <div className="navbar__inner">
           <a href="#" className="navbar__logo">
-            <motion.span
-              key={scrolled ? 'full' : 'short'}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              {scrolled ? 'FORMAX' : 'F'}
-            </motion.span>
+            <img
+              src={fMark}
+              alt="FORMAX"
+              className={`navbar__logo-img${scrolled ? ' navbar__logo-img--dark' : ''}`}
+            />
           </a>
 
           {/* Desktop links */}

@@ -19,31 +19,19 @@
   z-index: 1;
 }
 
-/* Centers the expanding clipper */
-.hero__title-outer {
+/* Logo image — blend removes the black square */
+.hero__logo-wrap {
   display: flex;
   justify-content: center;
-  align-items: baseline;
-  width: 100%;
 }
 
-/* Overflow-hidden — width driven by JS after fonts load */
-.hero__clipper {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0; /* hides text until JS sets the real start width */
-}
-
-/* Full word — never clipped vertically */
-.hero__word {
-  display: inline-block;
-  font-size: clamp(52px, 10vw, 120px);
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  line-height: 1;
-  white-space: nowrap;
+.hero__logo {
+  width: clamp(260px, 42vw, 500px);
+  height: auto;
+  mix-blend-mode: screen;
+  display: block;
+  user-select: none;
+  pointer-events: none;
 }
 
 /* Gold bar */
@@ -72,6 +60,5 @@
   }
 
   .hero__inner    { gap: 20px; }
-  .hero__word     { letter-spacing: 0.18em; }
   .hero__subtitle { font-size: 9px; letter-spacing: 0.2em; }
 }

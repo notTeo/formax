@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import fullLogo from '../assets/formax-logo-transparent.png'
 import './AluminumCard.css'
 
 export default function AluminumCard() {
@@ -15,7 +16,6 @@ export default function AluminumCard() {
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* perspective must sit on a separate parent from the rotating element */}
         <div className="alcard-perspective">
           <motion.div
             className="alcard-flipper"
@@ -26,8 +26,7 @@ export default function AluminumCard() {
             {/* ── FRONT ── */}
             <div className="alcard-face alcard-front">
               <div className="alcard-face__inner">
-                <span className="alcard-front__name">FORMAX</span>
-                <span className="alcard-front__hint">tap to flip</span>
+                <img src={fullLogo} alt="FORMAX" className="alcard-front__logo" />
               </div>
             </div>
 
@@ -48,6 +47,25 @@ export default function AluminumCard() {
             </div>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Tap indicator — lives outside the rotated scene */}
+      <motion.div
+        className="alcard-hint"
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, delay: 1.1, ease: 'easeOut' }}
+        onClick={() => setFlipped(f => !f)}
+      >
+        <motion.span
+          className="alcard-hint__icon"
+          animate={{ rotate: [0, 180, 180] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          ↺
+        </motion.span>
+        <span className="alcard-hint__label">Tap to flip</span>
       </motion.div>
     </div>
   )

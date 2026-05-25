@@ -5,6 +5,9 @@
   right: 0;
   z-index: 200;
   border-bottom: 1px solid transparent;
+  /* Force GPU layer — prevents iOS Safari from hiding the bar on scroll */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   transition:
     background var(--transition),
     border-color var(--transition),
@@ -36,16 +39,25 @@
 
 /* Logo */
 .navbar__logo {
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 0.45em;
-  color: var(--white);
-  text-transform: uppercase;
   flex-shrink: 0;
   margin-right: auto;
-  transition: color var(--transition);
+  display: flex;
+  align-items: center;
 }
-.navbar--scrolled .navbar__logo { color: var(--black); }
+
+.navbar__logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  transition: filter var(--transition);
+  /* white mark shows on dark bg */
+  filter: none;
+}
+
+/* On white scrolled navbar, invert to black */
+.navbar__logo-img--dark {
+  filter: invert(1);
+}
 
 /* Desktop nav links */
 .navbar__links {
