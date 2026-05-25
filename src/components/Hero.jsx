@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import './Hero.css'
 
@@ -7,36 +7,63 @@ export default function Hero() {
   const wordRef    = useRef(null)
   const [done, setDone] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const clipper = clipperRef.current
     const word    = wordRef.current
     if (!clipper || !word) return
 
-    const full  = word.scrollWidth
-    const start = Math.round(full / 14)
+    let cancelled    = false
+    let fallbackTimer = null
 
-    // 1. Pin to 1-char width with NO transition — prevents flash
-    clipper.style.transition = 'none'
-    clipper.style.width      = `${start}px`
-
-    // 2. Force reflow so the browser registers the starting value
-    void clipper.getBoundingClientRect()
-
-    // 3. Enable transition and set target — browser animates it
-    clipper.style.transition = 'width 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s'
-    clipper.style.width      = `${full}px`
-
-    // 4. Once done — hand off to CSS (max-content is always correct on resize too)
-    //    We set this BEFORE setDone so React's re-render never sees a missing width
-    const onEnd = () => {
+    // Called exactly once to complete the animation (or skip it)
+    const finish = () => {
+      if (cancelled) return
+      clearTimeout(fallbackTimer)
       clipper.style.transition = ''
       clipper.style.width      = 'max-content'
       setDone(true)
     }
-    clipper.addEventListener('transitionend', onEnd, { once: true })
+
+    const run = () => {
+      if (cancelled) return
+
+      const full = word.scrollWidth
+
+      // If font still hasn't given us a real width, skip animation and reveal immediately
+      if (full <= 0) {
+        finish()
+        return
+      }
+
+      const start = Math.round(full / 14)
+
+      // Set narrow start width — no transition so there's no visible jump
+      clipper.style.transition = 'none'
+      clipper.style.width      = `${start}px`
+
+      // Force the browser to commit the starting value before we add the transition
+      void clipper.getBoundingClientRect()
+
+      // Now animate to full width
+      clipper.style.transition = 'width 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s'
+      clipper.style.width      = `${full}px`
+
+      // Safety net: if transitionend never fires (tab hidden, browser throttling)
+      // force completion after the full animation time + buffer
+      fallbackTimer = setTimeout(finish, 2600)
+
+      clipper.addEventListener('transitionend', () => {
+        finish()
+      }, { once: true })
+    }
+
+    // Wait for Sora to load before measuring — this is the key fix for mobile
+    const fontsReady = document.fonts?.ready ?? Promise.resolve()
+    fontsReady.then(run)
 
     return () => {
-      clipper.removeEventListener('transitionend', onEnd)
+      cancelled = true
+      clearTimeout(fallbackTimer)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
